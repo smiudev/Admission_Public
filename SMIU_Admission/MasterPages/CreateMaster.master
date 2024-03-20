@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPages_CreateMaster" CodeBehind="CreateMaster.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admissions Spring 2024 - SMI University</title>
+    <link rel="icon" href="../content/theme/images/fav-icon.png" type="image/png" />
+    <link href="../Content/Account/css/all.min.css" rel="stylesheet" />
+    <link href="../Content/Account/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/Account/css/mdb-min.css" rel="stylesheet" />
+    <link href="../Content/Account/css/swap.css" rel="stylesheet" />    
+    <script type="text/javascript" src="../Content/Account/js/mdb-min.js"></script>
+    <script type="text/javascript" src="../Content/Account/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../Content/Account/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="background-image:url('Images/Bg1.jpg'); background-size:cover; background-repeat:repeat;">
+<section class="vh-100">
+  <div class="container py-5 h-100">     
+    <div class="row d-flex justify-content-center align-items-center h-100">
+       
+      <div class="col col-xl-10">
+            <div style="text-align:center;">
+                <h2 style="color:white;"><strong>SMIU ADMISSION PORTAL</strong></h2>
+            </div>
+        <div class="card" style="border-radius: 1rem;">            
+            <asp:ContentPlaceHolder ID="contentScreen" runat="server" />
+        </div>
+          <div style="text-align:right;">
+            </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPages_FrontPage"
+    CodeBehind="FrontPage.master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SMIU - Online Admission System</title>
+    <!--
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE6" />-->
+    <link id="Link1" rel="stylesheet" type="text/css" runat="server" href="~/css/SMIU_Admission.css"
+        media="all" />
+    <script type="text/javascript" language="javascript" src="/scripts/jquery.js"></script>
+    <script src="/scripts/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/ui.core.js"></script>
+    <script type="text/javascript" src="/scripts/ui.datepicker.js"></script>
+    <script type="text/javascript">
+        //doesn't allow to go back to previous button
+        window.history.forward(1);
+        //end (doesn't allow to go back to previous button)
+
+
+        function collapse(name) {
+            var c = document.getElementById(name)
+            if (c.style.display == 'none') {
+                c.style.display = 'block'
+            }
+            else c.style.display = 'none'
+
+        }
+        //////////////////////////////////
+
+        function showhide(name) {
+            var e = document.getElementById(name)
+            if (e.style.visibility == 'visible') {
+                e.style.visibility = 'hidden'
+            }
+            else e.style.visibility = 'visible'
+        }
+        /////////////////////////////////////////////////////
+
+        $(document).ready(function () {
+            //slides the element with class "menu_body" when paragraph with class "menu_head" is clicked
+
+            //    $("#firstpane p.menu_head2").click(function()
+            $("#firstpane p").click(function () {
+                $(this).css({ backgroundPosition: "center -38px" }).next("div.menu_body").slideToggle(450).siblings("div.menu_body").slideUp("slow");
+                $(this).siblings().css({ backgroundPosition: "center 0px" });
+            });
+
+            ///// Roll overfix
+            $('.menu_head1').click(function () {
+                $("div.menu_body").css({ backgroundPosition: "center -38px" }).slideUp("slow");
+                $(this).siblings().css({ backgroundPosition: "center 0px" });
+            });
+        }); 
+
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="masterCont">
+        <div id="container">
+            <div class="smihederbg">
+                <div class="smiheader">
+                    <div class="userSection">
+                        <strong style="color: #FEF8E0">Welcome ! </strong>&nbsp; <a href="javascript:;" onclick="showhide('userDetail')">
+                            &nbsp; <strong style="color: #FEF8E0">
+                                <% DisplayUserInfo("UserName"); %>- </strong>&diams; <a id="A1" href="~/Adminlogin.aspx?logout=UserLogOut"
+                                    runat="server"><strong style="color: white;">Logout</strong></a> &nbsp;
+                    </div>
+                    <!-- === USER DETAILT DIV=== -->
+                    <div id="userDetail">
+                        <div class="popup">
+                            <div class="tagBox">
+                                <div class="tagUser">
+                                </div>
+                                <!-- =======USER INFORMATION ICON====== -->
+                                <div class="tagTitle">
+                                    User Information
+                                </div>
+                            </div>
+                            <div class="rightSegs">
+                                <strong>User:</strong>
+                                <% DisplayUserInfo("UserName"); %>
+                                <br />
+                                <strong>Department:</strong>
+                                <% DisplayUserInfo("DepartmentName"); %>
+                                <br />
+                                <strong>Designation:</strong>
+                                <% DisplayUserInfo("DesignationName"); %>
+                                <br />
+                                <strong>Role:</strong> Admin
+                                <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged">
+                                </asp:DropDownList>
+                                <br />
+                                <a id="linkChangePassword" href="../Modules/AdminSecurity/ChangePassword.aspx" runat="server"
+                                    style="color: #326597; text-decoration: none;">Change Password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div STRIPE> -->
+            <div class="stripe">
+            </div>
+            <!-- ######### BODY CONTAINER ######## -->
+            <div id="bodyCont">
+                <!-- ##### DATA BODY #####-->
+                <div id="dataContainer">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
+                    <h1>
+                        <asp:ContentPlaceHolder ID="cphTitle" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </h1>
+                    <asp:Panel ID="pnlmessage" runat="server" CssClass="error" Visible="false">
+                        <asp:Label ID="lblmsg" runat="server"></asp:Label>
+                    </asp:Panel>
+                    <asp:ContentPlaceHolder ID="cphbody" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <HtmlIframe id="MaintainSession" src="~/Modules/Forms/SessionAlive.aspx" width="0" height="0" runat="server"></HtmlIframe>
+            </div>
+            <!-- ########## TASK BAR ######## -->
+            <div class="taskWrapper">
+                <div class="taskBar">
+                    <div id="firstpane" class="menu_list">
+                        <%--<p class="menu_head1">
+                            <a id="A2" href="#" runat="server"><span>Dashboard</span></a></p>
+                        <p class="menu_head2">
+                            Manage Security</p>
+                        <div class="menu_body">
+                            <a id="A3" href="" runat="server">Manage Features</a> <a id="A4" href="#" runat="server">
+                                Manage Roles</a> <a id="A5" href="" runat="server">Assign Features to Role</a>
+                            <a id="A6" href="#" runat="server">Create User</a> <a id="A7" href="#" runat="server">
+                                Manage User</a>
+                        </div>
+                        <p class="menu_head3">
+                            Manage Application</p>
+                        <div class="menu_body">
+                            <a id="A8" href="#" runat="server">Create Job</a> <a id="A9" href="#" runat="server">
+                                Manage JOb</a> <a id="A10" href="#" runat="server">Manage Department Wise Jobs</a>
+                        </div>
+                        <p class="menu_head4">
+                            Recuritment</p>
+                        <div class="menu_body">
+                            <a id="A11" href="#" runat="server">Manage Applicants</a> <a id="A12" href="#" runat="server">
+                                Manage Surveys</a>
+                        </div>
+                        <p class="menu_head5">
+                            Reports</p>
+                        <div class="menu_body">
+                            <a id="A13" href="#" runat="server">Participation of Student Report</a> <a id="A14"
+                                href="#" runat="server">Participation By Departments - Summary Report</a> <a id="A15"
+                                    href="#" runat="server">No. Of Application Per Department</a> <a id="A16" href="#"
+                                        runat="server">Quarterly Report</a>
+                        </div>
+                        <p class="menu_head6">
+                            System Config</p>
+                        <div class="menu_body">
+                            <a id="A17" runat="server" href="#">Manage Categories</a> <a id="A18" runat="server"
+                                href="#">Manage Jobst</a> <a id="A19" runat="server" href="#">Manage Departments</a>
+                            <a id="A20" runat="server" href="#">Manage Areas</a> <a id="A21" runat="server" href="#">
+                                Manage Designations</a> <a id="A22" runat="server" href="#">Manage Shifts</a>
+                        </div>--%>
+                        <asp:Panel ID="pnl_Menus" runat="server">
+                        </asp:Panel>
+                    </div>
+                </div>
+                <!-- ########## TASK BAR END ######## -->
+            </div>
+            <!--containter ends -->
+            <div id="footer">
+                <div class="smiLogoStripe">
+                    <div class="smiLogo">
+                        <div class="copyrights">
+                            Copyrights © 2017 Sindh Madressatul Islam University. All rights reserved. Contact:
+                            111-111-885, Ext 221, E-mail: <a href="mailto:admission@smiu.edu.pk" style="color: white;">
+                                admission@smiu.edu.pk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- ~-~-~-~-~-~- System by IT Team ~-~-~-~-~-~- -->
+</body>
+</html>

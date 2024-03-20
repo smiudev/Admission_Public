@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mtc.master.cs" Inherits="SMIU_Admission.MasterPages.mtc" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SMIU - CPE Courses</title>
+    <!--
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE6" />-->
+    <link id="Link1" rel="stylesheet" type="text/css" runat="server" href="~/css/smiu.student.css"
+        media="all" />
+    <script type="text/javascript" language="javascript" src="/scripts/jquery.js"></script>
+    <script src="/scripts/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/ui.core.js"></script>
+    <script type="text/javascript" src="/scripts/ui.datepicker.js"></script>
+    <script type="text/javascript">
+        //doesn't allow to go back to previous button
+        window.history.forward(1);
+        //end (doesn't allow to go back to previous button)
+
+        function collapse(name) {
+            var c = document.getElementById(name)
+            if (c.style.display == 'none') {
+                c.style.display = 'block'
+            }
+            else c.style.display = 'none'
+
+        }
+
+        //////////////////////////////////
+
+        function showhide(name) {
+            var e = document.getElementById(name)
+            if (e.style.visibility == 'visible') {
+                e.style.visibility = 'hidden'
+            }
+            else e.style.visibility = 'visible'
+        }
+        /////////////////////////////////////////////////////
+
+        $(document).ready(function () {
+            //slides the element with class "menu_body" when paragraph with class "menu_head" is clicked
+
+            //    $("#firstpane p.menu_head2").click(function()
+            $("#firstpane p").click(function () {
+                $(this).css({ backgroundPosition: "center -38px" }).next("div.menu_body").slideToggle(450).siblings("div.menu_body").slideUp("slow");
+                $(this).siblings().css({ backgroundPosition: "center 0px" });
+            });
+
+            ///// Roll overfix
+            $('.menu_head1').click(function () {
+                $("div.menu_body").css({ backgroundPosition: "center -38px" }).slideUp("slow");
+                $(this).siblings().css({ backgroundPosition: "center 0px" });
+            });
+        }); 
+
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="masterCont">
+        <div id="container">
+            <div class="smiheadermtc">
+                <div class="smiheadermtc">
+                    <div id="usersection" class="userSection" runat="server" visible="false">
+                        <strong style="color: #FEF8E0">Welcome ! </strong>&nbsp; &nbsp; <strong style="color: #FEF8E0">
+                            <% DisplayUserInfo("StudentName"); %>
+                        </strong>&diams; <a id="A1" href="~/index.aspx?logout=UserLogOut" runat="server"><strong
+                            style="color: white;">Logout</strong></a>
+                    </div>
+                </div>
+            </div>
+            <!--<div STRIPE> -->
+            <div class="stripe">
+            </div>
+            <!-- ######### BODY CONTAINER ######## -->
+            <div id="bodyCont">
+                <!-- ##### DATA BODY #####-->
+                <div id="dataContainer">
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
+                    <h1>
+                        <asp:ContentPlaceHolder ID="cphTitle" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </h1>
+                    <asp:Panel ID="pnlmessage" runat="server" CssClass="error" Visible="false">
+                        <asp:Label ID="lblmsg" runat="server"></asp:Label>
+                    </asp:Panel>
+                    <asp:ContentPlaceHolder ID="cphbody" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <HtmlIframe id="MaintainSession" src="~/Modules/Forms/SessionAlive.aspx" width="0" height="0" runat="server"></HtmlIframe>
+            </div>
+            <!--containter ends -->
+            <div id="footer">
+                <div class="smiLogoStripe">
+                    <div class="smiLogo">
+                        <div class="copyrights">
+                            Copyrights © 2019 Sindh Madressatul Islam University. All rights reserved. Contact:
+                            +92-021-99213307, E-mail: <a href="mailto:admission@smiu.edu.pk" style="color: white;">admission@smiu.edu.pk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <!-- ~-~-~-~-~-~- System by IT Team ~-~-~-~-~-~- -->
+</body>
+</html>
